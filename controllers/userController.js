@@ -42,7 +42,8 @@ const userSignup = async (req, res) => {
       role: role || "user",
     });
     const user = await newUser.save();
-    const token = createToken(user._id);
+    const token = createToken(user._id, role);
+    console.log(token, "----------------token---------------");
     return res
       .status(201)
       .json({ success: true, message: "Register Sucessfully", token });
