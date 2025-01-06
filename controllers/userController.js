@@ -42,8 +42,8 @@ const userSignup = async (req, res) => {
       role: role || "user",
     });
     const user = await newUser.save();
-    const token = createToken(user._id, role);
-    console.log(token, "----------------token---------------");
+    const token = createToken(user._id, user.role);
+    console.log(token, "----------reg------token---------------");
     return res
       .status(201)
       .json({ success: true, message: "Register Sucessfully", token });
@@ -69,7 +69,8 @@ const userLogin = async (req, res) => {
         message: "Invalid Credentials",
       });
     }
-    const token = createToken(user._id);
+    const token = createToken(user._id, user.role);
+    console.log(token, "----------login------token---------------");
     return res
       .status(200)
       .json({ success: true, message: "Login Successfully", token });
